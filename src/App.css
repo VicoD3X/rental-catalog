@@ -19,6 +19,10 @@
   text-rendering: optimizeLegibility;
 }
 
+html {
+  scrollbar-gutter: stable;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -44,8 +48,13 @@ select {
   font: inherit;
 }
 
+img {
+  max-width: 100%;
+}
+
 main {
-  width: min(1180px, calc(100% - 40px));
+  width: calc(100% - 40px);
+  max-width: 1180px;
   margin: 0 auto;
 }
 
@@ -56,7 +65,8 @@ main {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: min(1180px, calc(100% - 40px));
+  width: calc(100% - 40px);
+  max-width: 1180px;
   margin: 24px auto 0;
   padding: 12px 14px 12px 18px;
   border: 1px solid rgba(255, 255, 255, 0.72);
@@ -69,6 +79,7 @@ main {
 .brandLink {
   display: inline-flex;
   align-items: center;
+  min-width: 0;
   gap: 12px;
 }
 
@@ -96,6 +107,7 @@ main {
 .headerNav {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: 8px;
 }
 
@@ -123,6 +135,7 @@ main {
 .displayContainer {
   position: relative;
   display: grid;
+  width: 100%;
   min-height: 430px;
   margin-top: 32px;
   overflow: hidden;
@@ -164,6 +177,7 @@ main {
   flex-direction: column;
   justify-content: center;
   width: min(680px, 88%);
+  min-width: 0;
   padding: clamp(34px, 7vw, 78px);
   color: #ffffff;
 }
@@ -207,6 +221,10 @@ main {
   justify-content: space-between;
   gap: 28px;
   margin: 58px 0 22px;
+}
+
+.catalogIntro > * {
+  min-width: 0;
 }
 
 .catalogIntro h2 {
@@ -528,12 +546,15 @@ footer {
 .dropdown-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: start;
   gap: 22px;
   margin: 46px auto 86px;
 }
 
 .dropdown {
+  min-width: 0;
   width: 100%;
+  align-self: start;
 }
 
 .dropdown-button {
@@ -541,6 +562,7 @@ footer {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  min-width: 0;
   min-height: 58px;
   padding: 0 20px;
   border: 1px solid rgba(255, 96, 96, 0.22);
@@ -565,8 +587,10 @@ footer {
 }
 
 .dropdown-title {
+  min-width: 0;
   font-size: 1rem;
   font-weight: 800;
+  overflow-wrap: anywhere;
 }
 
 .dropdownIcon {
@@ -577,6 +601,7 @@ footer {
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-width: 0;
   overflow: hidden;
   border: 1px solid var(--line);
   border-top: 0;
@@ -588,6 +613,7 @@ footer {
 
 .dropdown-item {
   width: 100%;
+  min-width: 0;
   padding: 17px 20px;
   color: var(--ink-soft);
   background: transparent;
@@ -602,6 +628,7 @@ footer {
 .dropdescription-title,
 .dropitem-title {
   display: block;
+  overflow-wrap: anywhere;
 }
 
 .contain404 {
@@ -676,18 +703,30 @@ footer {
 @media (max-width: 680px) {
   main,
   .headerContainer {
-    width: min(100% - 28px, 1180px);
+    width: auto;
+    max-width: 1180px;
+    margin-right: 14px;
+    margin-left: 14px;
   }
 
   .headerContainer {
     top: 10px;
     padding: 10px 12px;
-    max-width: calc(100vw - 28px);
+    display: grid;
+    gap: 8px;
+    justify-items: center;
+    border-radius: 28px;
   }
 
   .headerNav {
+    width: 100%;
+    justify-content: center;
     gap: 0;
     flex-shrink: 0;
+  }
+
+  .brandLink {
+    justify-content: center;
   }
 
   .brandMark {
@@ -702,19 +741,18 @@ footer {
 
   .navTitle {
     min-height: 38px;
-    padding: 0 8px;
-    font-size: 0.8rem;
+    padding: 0 7px;
+    font-size: 0.78rem;
   }
 
   .displayContainer {
-    max-width: calc(100vw - 28px);
     min-height: 390px;
     border-radius: 26px;
   }
 
   .heroContent {
     width: auto;
-    max-width: calc(100vw - 28px);
+    max-width: 100%;
     padding: 32px 26px;
   }
 
@@ -729,6 +767,7 @@ footer {
     max-width: 285px;
     font-size: 0.95rem;
     line-height: 1.55;
+    overflow-wrap: anywhere;
   }
 
   .catalogIntro {
@@ -752,5 +791,38 @@ footer {
   .slider-arrow {
     width: 44px;
     height: 44px;
+  }
+}
+
+@media (max-width: 420px) {
+  .headerContainer {
+    gap: 8px;
+  }
+
+  .headerNav {
+    gap: 2px;
+  }
+
+  .navTitle {
+    padding: 0 12px;
+    font-size: 0.82rem;
+  }
+
+  .displayContainer {
+    min-height: 370px;
+  }
+
+  .heroContent {
+    padding: 30px 24px;
+  }
+
+  .titleDisplay {
+    max-width: 260px;
+    font-size: 1.58rem;
+  }
+
+  .heroSubtitle {
+    max-width: 255px;
+    font-size: 0.9rem;
   }
 }
