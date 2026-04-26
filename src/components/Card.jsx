@@ -3,15 +3,18 @@ import { Link } from 'react-router-dom';
 
 function Card({ id, title, cover }) {
     return (
-        <div className='locatCard'>
-            <Link to={`/detail/${id}`}>
+        <article className='locatCard'>
+            <Link to={`/detail/${id}`} aria-label={`Voir le logement ${title}`}>
                 <div className='image-containerHome'>
-                    <img src={cover} alt={title} className='testimg' />
+                    <img src={cover} alt={title} className='testimg' loading='lazy' />
                     <div className='GradientOpacity'></div>
                 </div>
-                <p className='locatName'>{title}</p>
+                <div className='cardMeta'>
+                    <span className='cardLabel'>Logement</span>
+                    <h3 className='locatName'>{title}</h3>
+                </div>
             </Link>
-        </div>
+        </article>
     );
 }
 

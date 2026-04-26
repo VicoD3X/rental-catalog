@@ -9,7 +9,12 @@ function Dropdown({ title, titleClass, children }) {
 
     return (
         <div className='dropdown'>
-            <button className={buttonClass} onClick={() => setIsOpen(!isOpen)} type='button'>
+            <button
+                aria-expanded={isOpen}
+                className={buttonClass}
+                onClick={() => setIsOpen(!isOpen)}
+                type='button'
+            >
                 <span className={titleClass}>{title}</span>
                 <FontAwesomeIcon className='dropdownIcon' icon={isOpen ? faChevronUp : faChevronDown} />
             </button>

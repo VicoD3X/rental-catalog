@@ -11,8 +11,7 @@ function StarRating({ rating }) {
                 <FontAwesomeIcon
                     icon={faStar}
                     key={value}
-                    className='starsIcon'
-                    style={{ color: value <= numericRating ? undefined : 'lightgray' }}
+                    className={value <= numericRating ? 'starsIcon active' : 'starsIcon'}
                 />
             ))}
         </div>

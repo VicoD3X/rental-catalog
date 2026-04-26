@@ -53,11 +53,12 @@ function DetailPage() {
     }
 
     return (
-        <>
-            <div className='headerDetail'>
+        <main>
+            <section className='headerDetail'>
                 {listing.pictures?.length > 0 && <Slider pictures={listing.pictures} />}
                 <div className='underDetail'>
                     <div className='containDetail1'>
+                        <span className='sectionEyebrow'>Fiche logement</span>
                         <h1 className='titleDetail'>{listing.title}</h1>
                         <p className='locationDetail'>{listing.location}</p>
                         <div className='tagsContainer'>
@@ -78,8 +79,9 @@ function DetailPage() {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='dropdown-container'>
+            </section>
+
+            <section className='dropdown-container'>
                 <Dropdown title='Description' titleClass='dropdown-title'>
                     <div className='dropdown-item'>
                         <span className='dropdescription-title'>{listing.description}</span>
@@ -93,8 +95,8 @@ function DetailPage() {
                         </div>
                     ))}
                 </Dropdown>
-            </div>
-        </>
+            </section>
+        </main>
     );
 }
 

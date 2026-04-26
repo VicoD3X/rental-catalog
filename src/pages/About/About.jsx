@@ -8,7 +8,7 @@ const values = [
     },
     {
         title: 'Respect',
-        content: 'L’interface met en avant des informations utiles sans complexifier l’expérience utilisateur.',
+        content: 'L’interface met en avant les informations utiles sans complexifier l’expérience utilisateur.',
     },
     {
         title: 'Service',
@@ -22,13 +22,20 @@ const values = [
 
 function About() {
     return (
-        <>
-            <div className='displayContainer'>
+        <main>
+            <section className='displayContainer aboutHero'>
                 <img src={aboutDisplay} alt='Paysage de montagne' className='headerDisplay' />
-                <p className='titleDisplay'>À propos</p>
-            </div>
+                <div className='heroContent'>
+                    <span className='heroEyebrow'>À propos</span>
+                    <h1 className='titleDisplay'>Un catalogue local pensé comme une interface produit</h1>
+                    <p className='heroSubtitle'>
+                        Le projet met l’accent sur le routing, la composition React et la lisibilité d’un parcours
+                        immobilier complet.
+                    </p>
+                </div>
+            </section>
 
-            <div className='bodyAbout'>
+            <section className='bodyAbout'>
                 <div className='dropdown-containerAbout'>
                     {values.map((value) => (
                         <Dropdown key={value.title} title={value.title} titleClass='dropdown-title'>
@@ -38,8 +45,8 @@ function About() {
                         </Dropdown>
                     ))}
                 </div>
-            </div>
-        </>
+            </section>
+        </main>
     );
 }
 

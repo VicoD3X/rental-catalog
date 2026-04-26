@@ -1,4 +1,4 @@
-const LISTINGS_URL = '/data.json';
+const LISTINGS_URL = `${import.meta.env.BASE_URL}data.json`;
 
 export async function getListings() {
   const response = await fetch(LISTINGS_URL);
