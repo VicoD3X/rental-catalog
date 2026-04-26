@@ -1,4 +1,4 @@
-# React-P11 - Real Estate Catalog UI
+# Rental Catalog - Real Estate Catalog UI
 
 ![React](https://img.shields.io/badge/React-18-61dafb)
 ![Vite](https://img.shields.io/badge/Vite-8-646cff)
@@ -7,7 +7,7 @@
 
 ## Présentation
 
-React-P11 est une application React/Vite de catalogue immobilier. Elle présente une liste d’annonces, une page détail par logement, une page À propos et une page 404.
+Rental Catalog est une application React/Vite de catalogue immobilier. Elle présente une liste d’annonces, une page détail par logement, une page À propos et une page 404.
 
 Le projet reste volontairement simple : il met en avant la structuration d’une interface React, l’usage de React Router, des composants réutilisables et un chargement de données JSON locales.
 
