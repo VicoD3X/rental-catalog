@@ -1,41 +1,42 @@
-
-import '../../App.css';
-import aboutDisplay from '../../pictures/aboutDisplay.png';
 import Dropdown from '../../components/Dropdown';
+import aboutDisplay from '../../pictures/aboutDisplay.png';
+
+const values = [
+    {
+        title: 'Fiabilité',
+        content: 'Les annonces sont présentées depuis un fichier JSON local, avec un parcours simple et stable.',
+    },
+    {
+        title: 'Respect',
+        content: 'L’interface met en avant des informations utiles sans complexifier l’expérience utilisateur.',
+    },
+    {
+        title: 'Service',
+        content: 'Les composants réutilisables facilitent la navigation entre catalogue, détail et informations.',
+    },
+    {
+        title: 'Sécurité',
+        content: 'Les routes invalides et les annonces introuvables sont gérées proprement via une page 404.',
+    },
+];
 
 function About() {
     return (
         <>
             <div className='displayContainer'>
-                <img src={aboutDisplay} alt='aboutDisplay' className='headerDisplay' />
-                <p className='titleDisplay'>A Propos</p>
+                <img src={aboutDisplay} alt='Paysage de montagne' className='headerDisplay' />
+                <p className='titleDisplay'>À propos</p>
             </div>
 
             <div className='bodyAbout'>
-                <div className="dropdown-containerAbout">
-                    <Dropdown title="Fiabilité" titleClass="dropdown-title">
-                        <div className='dropdown-item'>
-                            <span className='dropdescription-title'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aspernatur blanditiis perferendis iusto delectus minus, incidunt maxime ducimus alias? Totam vero fugiat libero, soluta blanditiis inventore impedit quibusdam cumque animi iste!.</span>
-                        </div>
-                    </Dropdown>
-
-                    <Dropdown title="Respect" titleClass="dropdown-title">
-                        <div className='dropdown-item'>
-                            <span className='dropdescription-title'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Impedit tenetur reprehenderit quo molestiae minima laboriosam, in adipisci dolor? Vero doloremque delectus esse atque odit eaque vel eos, veritatis pariatur aut?</span>
-                        </div>
-                    </Dropdown>
-
-                    <Dropdown title="Service" titleClass="dropdown-title">
-                        <div className='dropdown-item'>
-                            <span className='dropdescription-title'>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quam culpa incidunt minima vel necessitatibus unde quibusdam error. Saepe adipisci cupiditate dolorum dolores perspiciatis accusantium quibusdam, voluptates totam rerum iure voluptas.</span>
-                        </div>
-                    </Dropdown>
-
-                    <Dropdown title="Sécurité" titleClass="dropdown-title">
-                        <div className='dropdown-item'>
-                            <span className='dropdescription-title'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugiat tempore quae nobis inventore consectetur facilis maiores delectus sit perferendis. Temporibus sint laboriosam sapiente. Magnam ea ratione nisi ab veritatis ullam.</span>
-                        </div>
-                    </Dropdown>
+                <div className='dropdown-containerAbout'>
+                    {values.map((value) => (
+                        <Dropdown key={value.title} title={value.title} titleClass='dropdown-title'>
+                            <div className='dropdown-item'>
+                                <span className='dropdescription-title'>{value.content}</span>
+                            </div>
+                        </Dropdown>
+                    ))}
                 </div>
             </div>
         </>

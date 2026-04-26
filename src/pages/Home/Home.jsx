@@ -1,43 +1,29 @@
-// Home.jsx
-import React, { useState, useEffect } from 'react';
-//import data from '../../data/data.json'; 
-import Card from '../../components/Card'; // 
+import { useEffect, useState } from 'react';
+import Card from '../../components/Card';
 import headerDisplay from '../../pictures/mainH.png';
-
-
+import { getListings } from '../../services/listings';
 
 function Home() {
-    // Ajouter un état pour stocker les données récupérées
-    const [data, setData] = useState([]);
+    const [listings, setListings] = useState([]);
+    const [error, setError] = useState('');
 
-    // Ajouter un effet pour charger les données
     useEffect(() => {
-        fetch('data.json')
-            .then((response) => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then((jsonData) => {
-                setData(jsonData);
-            })
-            .catch((error) => {
-                console.error('Erreur lors du chargement des données:', error);
-            });
-    }, []); // Un tableau de dépendances vide signifie que l'effet ne s'exécute qu'au montage
+        getListings()
+            .then(setListings)
+            .catch(() => setError('Les annonces sont indisponibles pour le moment.'));
+    }, []);
 
     return (
         <>
             <div className='displayContainer'>
-                <img src={headerDisplay} alt='headerDisplay' id='headerDisplay' className='headerDisplay' />
+                <img src={headerDisplay} alt='Vue intérieure lumineuse' className='headerDisplay' />
                 <p className='titleDisplay'>Chez vous, partout et ailleurs</p>
             </div>
             <div className='locatContainer'>
                 <div className='locatUndercontainer'>
-                    {/* Utiliser l'état 'data' pour afficher les cartes */}
-                    {data.map((item, index) => (
-                        <Card key={index} id={item.id} title={item.title} cover={item.cover} />
+                    {error && <p className='statusMessage'>{error}</p>}
+                    {!error && listings.map((item) => (
+                        <Card key={item.id} id={item.id} title={item.title} cover={item.cover} />
                     ))}
                 </div>
             </div>
@@ -46,4 +32,3 @@ function Home() {
 }
 
 export default Home;
-

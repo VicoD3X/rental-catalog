@@ -1,109 +1,101 @@
-import '../../App.css';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
-import Slider from '../../components/Slider'
-import StarRating from '../../components/StarRating';
 import Dropdown from '../../components/Dropdown';
+import Slider from '../../components/Slider';
+import StarRating from '../../components/StarRating';
+import { getListingById } from '../../services/listings';
 import NotFound from '../404/404';
 
-
-
-const DetailPage = () => {
+function DetailPage() {
     const { id } = useParams();
-    const [itemDetails, setItemDetails] = useState(null);
-    const [error, setError] = useState(null);
-    const navigate = useNavigate();
+    const [listing, setListing] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        const fetchData = async () => { 
-            try {
-                const response = await fetch('/data.json');
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
+        let isMounted = true;
+
+        setLoading(true);
+        setError('');
+
+        getListingById(id)
+            .then((result) => {
+                if (isMounted) {
+                    setListing(result);
                 }
-                const jsonData = await response.json();
-                const item = jsonData.find(item => item.id === id);
-                if (!item) {
-                    navigate('/404');
-                    return;
+            })
+            .catch(() => {
+                if (isMounted) {
+                    setError('Impossible de charger cette annonce.');
                 }
-                setItemDetails(item);
-            } catch (error) {
-                console.error('Erreur lors du chargement des données:', error);
-                setError(error);
-            }
+            })
+            .finally(() => {
+                if (isMounted) {
+                    setLoading(false);
+                }
+            });
+
+        return () => {
+            isMounted = false;
         };
+    }, [id]);
 
-        fetchData();
-    }, [id, navigate]);
-
-    if (error) {
-        navigate('/404');
-        return <NotFound />;
+    if (loading) {
+        return <p className='statusMessage'>Chargement de l&apos;annonce...</p>;
     }
 
-    if (!itemDetails) {
-        navigate('/404');
+    if (error) {
+        return <p className='statusMessage'>{error}</p>;
+    }
+
+    if (!listing) {
         return <NotFound />;
     }
 
     return (
         <>
             <div className='headerDetail'>
-                {itemDetails.pictures && <Slider className='picsDetail' pictures={itemDetails.pictures} />}
+                {listing.pictures?.length > 0 && <Slider pictures={listing.pictures} />}
                 <div className='underDetail'>
                     <div className='containDetail1'>
-                        <h1 className='titleDetail'>{itemDetails.title}</h1>
-                        <p className='locationDetail'>{itemDetails.location}</p>
+                        <h1 className='titleDetail'>{listing.title}</h1>
+                        <p className='locationDetail'>{listing.location}</p>
                         <div className='tagsContainer'>
-                            {itemDetails.tags.map((tag, index) => (
-                                <span key={index} className='tag'>
+                            {listing.tags.map((tag) => (
+                                <span key={tag} className='tag'>
                                     {tag}
                                 </span>
                             ))}
                         </div>
-
                     </div>
                     <div className='containDetail2'>
                         <div className='profilContainer'>
-                            <h2 className='nameDetail'>{itemDetails.host.name}</h2>
-                            <img className='profilDetail' src={itemDetails.host.picture} alt="Host Profile" />
+                            <h2 className='nameDetail'>{listing.host.name}</h2>
+                            <img className='profilDetail' src={listing.host.picture} alt={listing.host.name} />
                         </div>
                         <div className='starsDetail'>
-                            <StarRating rating={itemDetails.rating} />
+                            <StarRating rating={listing.rating} />
                         </div>
                     </div>
                 </div>
             </div>
-            <div className="dropdown-container">
-
-                <Dropdown title="Description" titleClass="dropdown-title">
+            <div className='dropdown-container'>
+                <Dropdown title='Description' titleClass='dropdown-title'>
                     <div className='dropdown-item'>
-                        <span className='dropdescription-title'>{itemDetails.description}</span>
+                        <span className='dropdescription-title'>{listing.description}</span>
                     </div>
                 </Dropdown>
 
-
-
-                <Dropdown title="Équipements" titleClass="dropdown-title">
-                    {itemDetails.equipments.map((equipment, index) => (
-                        <div key={index} className='dropdown-item'>
+                <Dropdown title='Équipements' titleClass='dropdown-title'>
+                    {listing.equipments.map((equipment) => (
+                        <div key={equipment} className='dropdown-item'>
                             <span className='dropitem-title'>{equipment}</span>
                         </div>
                     ))}
                 </Dropdown>
             </div>
-
-
         </>
-
     );
-
-
-};
+}
 
 export default DetailPage;
-
-
-
