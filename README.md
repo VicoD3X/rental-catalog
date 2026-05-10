@@ -21,7 +21,7 @@ Démo GitHub Pages : [vicod3x.github.io/rental-catalog](https://vicod3x.github.i
 
 ## Objectif
 
-L’objectif est de transformer une ancienne application React en projet portfolio lisible, sans changer le concept général ni ajouter de backend artificiel.
+L’objectif est de conserver une application React lisible, sans changer le concept général ni ajouter de backend artificiel.
 
 Ce dépôt démontre :
 
